@@ -38,6 +38,8 @@ def gen_target_name(pkg):
         return "VTA_TARGET_PYNQ"
     elif pkg.TARGET == "de10nano":
         return "VTA_TARGET_DE10_NANO"
+    elif pkg.TARGET == "de10pro":
+        return "VTA_TARGET_DE10_PRO"
     elif pkg.TARGET == "ultra96":
         return "VTA_TARGET_ULTRA96"
     elif pkg.TARGET == "zcu104":

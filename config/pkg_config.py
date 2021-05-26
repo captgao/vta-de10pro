@@ -100,6 +100,12 @@ class PkgConfig(object):
                 "-I%s/src/de10nano" % vta_hw_path,
                 "-I%s/3rdparty" % tvm_path
             ]
+        elif self.TARGET == ["de10pro"]:
+            self.lib_source += glob.glob("%s/src/de10pro/*.cc" % vta_hw_path)
+            self.include_path += [
+                "-I%s/src/de10pro" % vta_hw_path,
+                "-I%s/3rdparty" % tvm_path
+            ]
 
         # Linker flags
         if self.TARGET in ["pynq", "ultra96", "zcu104"]:
@@ -149,6 +155,23 @@ class PkgConfig(object):
             self.load_base_addr = "0xFF221000"
             self.compute_base_addr = "0xFF222000"
             self.store_base_addr = "0xFF223000"
+        elif self.TARGET == "de10pro":
+            self.fpga_device = "1SX280HU2F50E1VG"
+            self.fpga_family = "Stratix\\ 10"
+            # TODO: The following parameters have not been propagated into
+            # current Chisel-based implement of VTA hardware for DE10-Pro.
+            # A future change should be made to propagate these parameters,
+            # in order to avoid duplicated definition.
+            self.fpga_freq = 100
+            self.fpga_per = 2
+            self.fpga_log_axi_bus_width = 6
+            self.axi_prot_bits = '100'
+            # IP register address map
+            self.ip_reg_map_range = "0x1000"
+            self.fetch_base_addr = "0xF9020000"
+            self.load_base_addr = "0xF9021000"
+            self.compute_base_addr = "0xF9022000"
+            self.store_base_addr = "0xF9023000"
         elif self.TARGET == "ultra96":
             self.fpga_device = "xczu3eg-sbva484-1-e"
             self.fpga_family = "zynq-ultrascale+"
